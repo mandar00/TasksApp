@@ -54,7 +54,7 @@ export const signUpUser = (formData: userFormProps) => {
 }
 
 
-const isLocalStorageFull=()=>{
+export const isLocalStorageFull=()=>{
   try {
     const testKey = "__test_key__";
     localStorage.setItem(testKey, "test"); // Try setting a small item
@@ -65,7 +65,7 @@ const isLocalStorageFull=()=>{
   }
 }
 
-const getUser = (username: string) => {
+export const getUser = (username: string) => {
   const userData = localStorage.getItem(username);
   return userData ? JSON.parse(userData) : null;
 
