@@ -3,9 +3,10 @@ interface RidirectProps {
   imagePath: string;
   redirectBtnText: string;
   redirectTo: string;
+  redirectMessage?:string
 }
 
-const Redirect = ({ imagePath, redirectBtnText, redirectTo }:RidirectProps) => {
+const Redirect = ({ imagePath, redirectBtnText, redirectTo ,redirectMessage}:RidirectProps) => {
   return (
     <div className="w-full h-full">
       <div className="h-[80%] ">
@@ -14,6 +15,7 @@ const Redirect = ({ imagePath, redirectBtnText, redirectTo }:RidirectProps) => {
       <Link  to={redirectTo}>
         <button className="btn btn-info mt-[2vw]">{redirectBtnText}</button>
       </Link>
+      { redirectMessage && <p>{redirectMessage}</p>}
     </div>
   );
 };

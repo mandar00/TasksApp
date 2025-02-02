@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import UserForm from "../components/UserForm";
 import { Link, useNavigate } from "react-router-dom";
-import SignUpLogo from "../assets/Sign-up.svg";
+import SignUpLogo from "../assets/SignUp2.svg";
 import { getFormData } from "../utils/generalUtils";
 import { signUpUser } from "../service/userService";
 import { useUpdateUser } from "../context/User/userContext";

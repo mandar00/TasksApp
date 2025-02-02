@@ -3,6 +3,8 @@ import TaskForm from "../components/TaskForm";
 import { TaskType } from "../types/taskTypes";
 import { createTask } from "../service/taskService";
 import { useUser } from "../context/User/userContext";
+import Redirect from "../components/Redirect";
+import LoginRedirect from "../assets/loginRedirect.svg"
 
 const Tasks = () => {
   const { username } = useUser();
@@ -36,6 +38,12 @@ const Tasks = () => {
     }
     console.log("Form Data:", data);
   };
+
+  if(!username || username.length === 0){
+    return(
+      <Redirect  imagePath={LoginRedirect} redirectBtnText="Login page" redirectTo="/login" redirectMessage="Please Login to add tasks"/>
+    )
+  }
   return (
     <>
       <button
