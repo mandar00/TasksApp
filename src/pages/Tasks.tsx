@@ -5,11 +5,14 @@ import { createTask } from "../service/taskService";
 import { useUser } from "../context/User/userContext";
 import Redirect from "../components/Redirect";
 import LoginRedirect from "../assets/loginRedirect.svg"
+import { useDispatch } from "react-redux";
+import { showSnackbar } from "../store/slice/SnackbarSlice";
 
 const Tasks = () => {
   const { username } = useUser();
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
   const formRef = useRef<{ resetForm: () => void }>(null);
 
@@ -27,6 +30,13 @@ const Tasks = () => {
       await createTask(username,data)
       formRef.current?.resetForm();
       setIsOpen(false);
+      dispatch(
+        showSnackbar({
+          show: true,
+          severity: "info",
+          message: "Failed to Fetch Movies",
+        })
+      );
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error("Error:", error.message);
@@ -35,6 +45,7 @@ const Tasks = () => {
       }
     } finally {
       setIsSubmitting(false);
+      
     }
     console.log("Form Data:", data);
   };
@@ -44,6 +55,9 @@ const Tasks = () => {
       <Redirect  imagePath={LoginRedirect} redirectBtnText="Login page" redirectTo="/login" redirectMessage="Please Login to add tasks"/>
     )
   }
+
+
+
   return (
     <>
       <button
