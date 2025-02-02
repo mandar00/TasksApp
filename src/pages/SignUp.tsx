@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import SignUpLogo from "../assets/Sign-up.svg";
 import { getFormData } from "../utils/generalUtils";
 import { signUpUser } from "../service/userService";
+import { useUpdateUser } from "../context/User/userContext";
 
 const SignUp = () => {
   const formRef = useRef<{ reset: () => void }>(null);
@@ -13,12 +14,14 @@ const SignUp = () => {
   });
 
   const navigate = useNavigate();
+  const updateUser = useUpdateUser();
 
   const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
       const formData = getFormData(e);
-      await signUpUser(formData);
+      const username = await signUpUser(formData);
+      updateUser(username as string)
       navigate("/");
     } catch (error: unknown) {
       if (error instanceof Error) {
