@@ -10,7 +10,7 @@ const Header = () => {
       </Link>
       {
         // dont show login or logout button on login and signin page 
-        (location.pathname !== "/login" && location.pathname !== "/signin") &&
+        (location.pathname !== "/login") &&
         <div>
         <Link to="/login">
           <button className="btn btn-info btn-sm text-white text-[1vw] outline-0">
