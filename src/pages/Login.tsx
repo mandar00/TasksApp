@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getFormData } from "../utils/generalUtils";
 import { useRef, useState } from "react";
 import { loginInUser } from "../service/userService";
+import { useUpdateUser } from "../context/User/userContext";
 
 const Login = () => {
   const formRef = useRef<{ reset: () => void }>(null);
@@ -13,12 +14,14 @@ const Login = () => {
   });
 
   const navigate = useNavigate();
+  const updateUser = useUpdateUser();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
       const formData = getFormData(e);
-      await loginInUser(formData);
+      const username = await loginInUser(formData);
+      updateUser(username as string)
       navigate("/")
     } catch (error: unknown) {
       if (error instanceof Error) {

@@ -14,7 +14,7 @@ export const loginInUser = (formData: userFormProps) => {
       //check if username and password are valid
       if (username === user?.username && password === user?.password) {
         localStorage.setItem(username as string, JSON.stringify({ ...user, isLoggedIn: true }))
-        resolve("Logged in successfully")
+        resolve(user?.username)
       } else {
         reject(new Error("Invalid Username or password"))
       }
@@ -45,7 +45,7 @@ export const signUpUser = (formData: userFormProps) => {
         isLoggedIn: true
       }
       localStorage.setItem(username as string, JSON.stringify(user))
-      resolve("Signed up successfully")
+      resolve(user.username)
     } else {
       //reject the promise as user already exist
       reject(new Error("Username already exists."))
