@@ -1,50 +1,77 @@
-# React + TypeScript + Vite
+<a id="readme-top"></a>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+# TASKLY 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## One Task App Fpr all Your needs
 
-## Expanding the ESLint configuration
+### Built With
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [![React][React.js]][React-url]
+- [![Typescript][Typescript]][Typescript-url]
+- [![Mermaid][Mermaid]][Mermaid-url]
+- [![Tailwind-css][Tailwind-css]][Tailwind-css-url]
+- [![Daisy-UI][Daisy-UI]][Daisy-UI-url]
+- [![redux-toolkit][redux-toolkit]][redux-toolkit-url]
 
-- Configure the top-level `parserOptions` property like this:
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+[![Product Name Screen Shot][App-screenshot1]]
+[![Product Name Screen Shot][App-screenshot2]]
+[![Product Name Screen Shot][App-screenshot3]]
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+<!-- GETTING STARTED -->
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Getting Started
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### Prerequisites
+
+- npm
+  ```sh
+  npm install npm@latest -g
+  ```
+
+### Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/mandar00/TasksApp.git
+   ```
+2. Move into tasks folder
+   ```sh
+    cd TasksApp
+   ```
+2. Install NPM packages
+   ```sh
+   npm install
+   ```
+
+### Start
+
+- Run project locally
+  ```sh
+  npm run dev
+  ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+[Typescript]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[Typescript-url]: https://www.typescriptlang.org/
+[React.js]: https://img.shields.io/badge/typescript-20232A?style=for-the-badge&logo=typescript&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[styled-components]: https://img.shields.io/badge/styled%20components-20232A?style=for-the-badge&logo=styled-components&logoColor=61DAFB
+[styled-components-url]: https://styled-components.com/
+[redux-toolkit]: https://img.shields.io/badge/redux%20toolkit-20232A?style=for-the-badge&logo=redux&logoColor=61DAFB
+[redux-toolkit-url]: https://redux-toolkit.js.org/
+[Tailwind-css]: https://img.shields.io/badge/Tailwind_CSS-20232A?style=for-the-badge&logo=tailwind-css&logoColor=white
+[Tailwind-css-url]: https://tailwindui.com/
+[Daisy-UI]: https://img.shields.io/badge/DaisyUI-20232A?style=for-the-badge&logo=daisyui&logoColor=white
+[Daisy-UI-url]: https://daisyui.com/
+[Mermaid]: https://img.shields.io/badge/mermaid-20232A?style=for-the-badge&logo=mermaid&logoColor=#FE3672
+[Mermaid-url]:https://mermaid.js.org/
+
+[App-screenshot1]: src/assets/appSS1.png
+[App-screenshot2]: src/assets/appSS4.png
+[App-screenshot3]: src/assets/appSS3.png
+
+
