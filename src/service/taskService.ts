@@ -1,4 +1,4 @@
-import { TasksListType, TaskType } from "../types/taskTypes"
+import { CompleteTaskType, TasksListType, TaskType } from "../types/taskTypes"
 import { genrateRandomId } from "../utils/generalUtils"
 import { getUser, isLocalStorageFull } from "./userService"
 
@@ -38,4 +38,12 @@ export const getSortedTaskArray=(taskObj:TasksListType)=>{
   const tasksArray = Object.values(taskObj);
   return tasksArray.sort((a,b)=> new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime() )
 
+}
+
+
+export const getFilteredTaskArray=(taskArray:CompleteTaskType[],filter:string,key:keyof CompleteTaskType)=>{
+  if(filter === "all") return taskArray
+  return taskArray.filter((task:CompleteTaskType)=>{
+    return  task[key] === filter
+  })
 }
