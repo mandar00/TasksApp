@@ -12,7 +12,7 @@ interface TaskListProps {
 const TaskList = ({ tasks,updateTaskStatus ,deleteTask}: TaskListProps) => {
   return (
     <div className="w-[90%] h-[97%] rounded-md shadow-md p-[1vw] bg-white overflow-hidden">
-      <header className="text-[2vw] font-bold border-b-1"> Tasks List</header>
+      <header className="text-[2vw] font-bold border-b-1 p-[1vw]"> Tasks List</header>
       <div className="w-full h-full overflow-auto p-[1vw] flex flex-col">
         {tasks &&
           Object.values(tasks).length > 0 &&

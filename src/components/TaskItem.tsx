@@ -19,7 +19,7 @@ const TaskItem = ({ task ,updateTaskStatus,deleteTask}: TaskItemProps) => {
   
   return (
     <div className="p-4">
-      <div className="border border-gray-300 bg-gray-100 rounded-lg">
+      <div className="border border-gray-300 bg-blue-200 rounded-lg">
         <div
           className="flex justify-between items-center p-4 cursor-pointer"
           onClick={() => setIsOpen(!isOpen)} // Toggle collapse when clicked on
@@ -34,7 +34,10 @@ const TaskItem = ({ task ,updateTaskStatus,deleteTask}: TaskItemProps) => {
                 updateTaskStatus(task.id,isTaskStatusPending ? 'completed' : 'pending');
               }}
             />
-            {isTaskStatusPending ? <p>{task.title}</p>:<s>{task.title}</s>}
+            {isTaskStatusPending ? <p>
+              {task.title}
+              <span>{task.dueDate}</span>
+              </p>:<s>{task.title}</s>}
           </span>
           <div className="space-x-2">
             <Trash2

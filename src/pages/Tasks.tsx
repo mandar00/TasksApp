@@ -9,7 +9,7 @@ import LoginRedirect from "../assets/loginRedirect.svg";
 import { useToasts } from "../hooks/useToasts";
 import TaskList from "../components/TaskList";
 import { copyDeep } from "../utils/generalUtils";
-import { useLocalstorage } from "../hooks/useLocalstorage";
+import { handleLocalstorage } from "../service/localstorageService";
 
 interface TasksListType {
   [key: string]: CompleteTaskType;
@@ -21,7 +21,7 @@ const Tasks = () => {
   const formRef = useRef<{ resetForm: () => void }>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [tasks, setTasks] = useState<TasksListType>({});
-  useLocalstorage(tasks,username,"data")
+  const updateLocalStorage = handleLocalstorage(username, "data");
 
   const getAllTasks = async () => {
     try {
@@ -38,8 +38,10 @@ const Tasks = () => {
   };
 
   useEffect(() => {
-    // fetch all tasks and set Tasks state
-    getAllTasks();
+    if (username) {
+      // fetch all tasks and set Tasks state
+      getAllTasks();
+    }
   }, []);
 
   const toggleModal = (value: boolean | undefined = undefined) => {
@@ -52,11 +54,19 @@ const Tasks = () => {
 
   const onSubmit = async (data: TaskType) => {
     try {
-      const task = await createTask(username, data) as CompleteTaskType;
-      setTasks((prevTasks) => ({
-        ...prevTasks,
-        [task.id]: task
-      }))
+      const task = (await createTask(username, data)) as CompleteTaskType;
+      let newTaskList;
+
+      setTasks((prevTasks) => {
+        newTaskList = {
+          ...prevTasks,
+          [task.id]: task,
+        };
+        console.log(newTaskList)
+        return newTaskList;
+      });
+
+      updateLocalStorage(newTaskList)
       formRef.current?.resetForm();
       setIsOpen(false);
       addInfoToast("Task added successfully");
@@ -77,12 +87,14 @@ const Tasks = () => {
   ) => {
     const taskListCopy: TasksListType = copyDeep(tasks);
     taskListCopy[taskId].status = taskStatus;
+    updateLocalStorage(taskListCopy)
     setTasks(taskListCopy);
   };
 
   const deleteTask = (taskId: string) => {
     const taskListCopy: TasksListType = copyDeep(tasks);
     delete taskListCopy[taskId];
+    updateLocalStorage(taskListCopy)
     setTasks(taskListCopy);
   };
 
