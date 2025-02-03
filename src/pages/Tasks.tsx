@@ -9,6 +9,7 @@ import LoginRedirect from "../assets/loginRedirect.svg";
 import { useToasts } from "../hooks/useToasts";
 import TaskList from "../components/TaskList";
 import { copyDeep } from "../utils/generalUtils";
+import { useLocalstorage } from "../hooks/useLocalstorage";
 
 interface TasksListType {
   [key: string]: CompleteTaskType;
@@ -18,9 +19,9 @@ const Tasks = () => {
   const { username } = useUser();
   const { addInfoToast, addDangerToast } = useToasts();
   const formRef = useRef<{ resetForm: () => void }>(null);
-
   const [isOpen, setIsOpen] = useState(false);
   const [tasks, setTasks] = useState<TasksListType>({});
+  useLocalstorage(tasks,username,"data")
 
   const getAllTasks = async () => {
     try {
