@@ -5,6 +5,7 @@ export type TaskType = {
 };
 
 
-export interface TaskWithIdType extends TaskType {
+export interface CompleteTaskType extends TaskType {
   id: string;
+  status:"pending" | "completed"
 }

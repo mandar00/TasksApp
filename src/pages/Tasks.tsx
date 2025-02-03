@@ -1,41 +1,45 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
 import TaskForm from "../components/TaskForm";
-import { TaskType, TaskWithIdType } from "../types/taskTypes";
+import { TaskType, CompleteTaskType } from "../types/taskTypes";
 import { createTask, fetchAllTasks } from "../service/taskService";
 import { useUser } from "../context/User/userContext";
 import Redirect from "../components/Redirect";
 import LoginRedirect from "../assets/loginRedirect.svg";
 import { useToasts } from "../hooks/useToasts";
 import TaskList from "../components/TaskList";
+import { copyDeep } from "../utils/generalUtils";
+
+interface TasksListType {
+  [key: string]: CompleteTaskType;
+}
 
 const Tasks = () => {
   const { username } = useUser();
-  const { addInfoToast,addDangerToast } = useToasts();
+  const { addInfoToast, addDangerToast } = useToasts();
   const formRef = useRef<{ resetForm: () => void }>(null);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [tasks, setTasks] = useState<TaskWithIdType[]>([]);
+  const [tasks, setTasks] = useState<TasksListType>({});
 
-  const getAllTasks=async()=>{
+  const getAllTasks = async () => {
     try {
       const response = await fetchAllTasks(username);
-      setTasks(response as TaskWithIdType[])
+      setTasks(response as TasksListType);
     } catch (error) {
       if (error instanceof Error) {
         console.error("Error:", error.message);
-        addDangerToast(error.message)
       } else {
         console.error("Unexpected error:", error);
-        addDangerToast("Something went wrong")
+        addDangerToast("Something went wrong");
       }
     }
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     // fetch all tasks and set Tasks state
-    getAllTasks()
-  },[])
+    getAllTasks();
+  }, []);
 
   const toggleModal = (value: boolean | undefined = undefined) => {
     if (value === undefined) {
@@ -47,19 +51,38 @@ const Tasks = () => {
 
   const onSubmit = async (data: TaskType) => {
     try {
-      await createTask(username, data);
+      const task = await createTask(username, data) as CompleteTaskType;
+      setTasks((prevTasks) => ({
+        ...prevTasks,
+        [task.id]: task
+      }))
       formRef.current?.resetForm();
       setIsOpen(false);
       addInfoToast("Task added successfully");
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error("Error:", error.message);
-        addDangerToast(error.message)
+        addDangerToast(error.message);
       } else {
         console.error("Unexpected error:", error);
-        addDangerToast("Something went wrong")
+        addDangerToast("Something went wrong");
       }
     }
+  };
+
+  const updateTaskStatus = (
+    taskId: string,
+    taskStatus: "pending" | "completed"
+  ) => {
+    const taskListCopy: TasksListType = copyDeep(tasks);
+    taskListCopy[taskId].status = taskStatus;
+    setTasks(taskListCopy);
+  };
+
+  const deleteTask = (taskId: string) => {
+    const taskListCopy: TasksListType = copyDeep(tasks);
+    delete taskListCopy[taskId];
+    setTasks(taskListCopy);
   };
 
   if (!username || username.length === 0) {
@@ -76,7 +99,11 @@ const Tasks = () => {
   return (
     <>
       <div className="w-full h-full flex items-center justify-center">
-        <TaskList tasks={tasks}/>
+        <TaskList
+          tasks={tasks}
+          updateTaskStatus={updateTaskStatus}
+          deleteTask={deleteTask}
+        />
       </div>
       <button
         onClick={() => toggleModal(true)}

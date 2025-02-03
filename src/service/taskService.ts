@@ -8,12 +8,12 @@ export const createTask = (username: string, taskData: TaskType) => {
     if (isLocalStorageFull()) {
       reject(new Error("Localstorage is full!!"))
     }
-
     const user = getUser(username)
     if (user !== null) {
-      user.data.push({ ...taskData, id: genrateRandomId() })
-      localStorage.setItem(username, JSON.stringify(user))
-      resolve("Task Added Successfully")
+      const taskId =  genrateRandomId()
+      const newTask =  { ...taskData, id: taskId,status:"pending" }
+      user.data[taskId] = newTask
+      resolve(newTask)
     } else {
       reject(new Error("User not found. Please Login!"))
     }

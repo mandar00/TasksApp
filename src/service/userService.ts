@@ -41,7 +41,7 @@ export const signUpUser = (formData: userFormProps) => {
       const user = {
         username: username as string,
         password: password as string,
-        data: [],
+        data: {},
         isLoggedIn: true
       }
       localStorage.setItem(username as string, JSON.stringify(user))
