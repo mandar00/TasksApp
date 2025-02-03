@@ -30,11 +30,11 @@ const TaskForm = forwardRef(
     const today = new Date().toISOString().split("T")[0];
 
     return (
-      <>
+      <div className="flex flex-col">
         <input
           type="checkbox"
           id="my-modal"
-          className="modal-toggle"
+          className="modal-toggle "
           checked={isOpen}
           readOnly
         />
@@ -105,7 +105,7 @@ const TaskForm = forwardRef(
             </form>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 );

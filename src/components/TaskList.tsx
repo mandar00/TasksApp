@@ -34,12 +34,12 @@ const TaskList = ({ tasks, updateTaskStatus, deleteTask }: TaskListProps) => {
 
   return (
     <div className="w-[90%] h-[97%] rounded-md shadow-md p-[1vw] pb-[2vw] bg-white overflow-hidden">
-      <header className="text-[2vw] font-bold border-b-1 flex justify-between p-[1vw]">
+      <header className="md:text-[30px] text-[25px] font-bold border-b-1 flex justify-between p-[7px]">
         <p>Tasks List</p>
         <span className="flex items-center justify-center ">
           <div className="dropdown dropdown-left">
-            <div tabIndex={0} role="button" className="btn m-1">
-              <Filter />
+            <div tabIndex={0} role="button" className="btn m-1 bg-transparent border-0">
+              <Filter className="w-[20px]"/>
             </div>
             <ul
               tabIndex={0}

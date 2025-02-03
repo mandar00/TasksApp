@@ -46,8 +46,8 @@ const UserForm = forwardRef<FormHandle, UserFormProps>(
     return (
       <>
         <div className="w-[70%] h-[80%] flex overflow-hidden rounded-xl shadow-md">
-          <section className="w-[50%] bg-gray-50 p-[1vw]">
-            <div className="text-[2vw] font-bold">{title}</div>
+          <section className="w-[100%] md:w-[50%] bg-gray-50 p-[25px]">
+            <div className="text-[30px] font-bold">{title}</div>
             {/* TODO implememt a config based input form */}
             <div className=" mt-[15%] ">
               <form
@@ -55,8 +55,8 @@ const UserForm = forwardRef<FormHandle, UserFormProps>(
                 onSubmit={handleSubmit}
                 className="w-full flex flex-col space-y-[3vw] items-center"
               >
-                <fieldset className="fieldset w-full flex flex-col space-y-[1vw]">
-                  <legend className="fieldset-legend text-left">
+                <fieldset className="fieldset w-full flex flex-col justify-center items-center space-y-[1vw]">
+                  <legend className="fieldset-legend text-center">
                     Username
                   </legend>
                   <input
@@ -67,7 +67,7 @@ const UserForm = forwardRef<FormHandle, UserFormProps>(
                     className="input"
                     placeholder="Please enter your username"
                   />
-                  <legend className="fieldset-legend text-left">
+                  <legend className="fieldset-legend text-center">
                     Password
                   </legend>
                   <input
@@ -86,11 +86,11 @@ const UserForm = forwardRef<FormHandle, UserFormProps>(
                   {submitBtnText || title}
                 </button>
               </form>
-              <p className="text-red-600  min-h-[2.2vw] text-[1.4vw]">{error.isError && error.errorText}</p>
-              {redirectLink}
+              <p className="text-red-600  min-h-[30px] text-[12px]">{error.isError && error.errorText}</p>
+              <p className="text-[15px]">{redirectLink}</p>
             </div>
           </section>
-          <section className="w-[50%]  shadow-xs">
+          <section className="w-[50%] bg-gray-50 hidden md:flex shadow-xs">
             <img className="h-full" src={imagePath} />
           </section>
         </div>

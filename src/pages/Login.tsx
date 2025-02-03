@@ -35,7 +35,7 @@ const Login = () => {
   };
 
   return (
-    <div className=" w-full h-full flex items-center justify-center">
+    <div className=" w-full h-full bg-gray-100 flex items-center justify-center">
       <UserForm
         ref={formRef}
         error={error}
