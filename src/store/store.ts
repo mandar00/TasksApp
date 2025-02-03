@@ -1,5 +1,5 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import snackbarSlice  from "./slice/SnackbarSlice";
+import snackbarSlice  from "./slice/snackbarSlice";
 
 const rootReducer = combineReducers({
   snackbars: snackbarSlice,

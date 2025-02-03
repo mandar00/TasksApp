@@ -5,14 +5,13 @@ import { createTask } from "../service/taskService";
 import { useUser } from "../context/User/userContext";
 import Redirect from "../components/Redirect";
 import LoginRedirect from "../assets/loginRedirect.svg"
-import { useDispatch } from "react-redux";
-import { showSnackbar } from "../store/slice/SnackbarSlice";
+import { useToasts } from "../hooks/useToasts";
 
 const Tasks = () => {
   const { username } = useUser();
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const dispatch = useDispatch();
+  const {addInfoToast} = useToasts();
 
   const formRef = useRef<{ resetForm: () => void }>(null);
 
@@ -30,13 +29,7 @@ const Tasks = () => {
       await createTask(username,data)
       formRef.current?.resetForm();
       setIsOpen(false);
-      dispatch(
-        showSnackbar({
-          show: true,
-          severity: "info",
-          message: "Failed to Fetch Movies",
-        })
-      );
+      addInfoToast("Task added successfully")
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error("Error:", error.message);
@@ -60,6 +53,9 @@ const Tasks = () => {
 
   return (
     <>
+      <div>
+
+      </div>
       <button
         onClick={() => toggleModal(true)}
         className="btn btn-circle btn-info shadow-md fixed bottom-[2vw] right-[3vw] text-white"

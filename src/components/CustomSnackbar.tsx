@@ -1,11 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useDispatch, useSelector } from "react-redux";
-import { showSnackbar, snackbarData } from "../store/slice/SnackbarSlice";
+import { showSnackbar, snackbarData } from "../store/slice/snackbarSlice";
 import { useEffect } from "react";
+import { cn } from "../utils/tailwindUtils";
 
 const CustomSnackbar = () => {
   const dispatch = useDispatch();
   const SnackbarData = useSelector(snackbarData);
-  const { show, message, autoHide } = SnackbarData;
+  const { show, message, autoHide,severity } = SnackbarData;
 
   const closeSnackbar = () => {
     //clear the message and reset everything to default
@@ -31,7 +33,7 @@ const CustomSnackbar = () => {
     <>
       {show && (
         <div className="toast ">
-          <div className="alert alert-info text-white">
+          <div className={cn(`alert alert-${severity} text-white`)}>
             <span>{message}</span>
           <div onClick={closeSnackbar} className="cursor-pointer">x</div>
           </div>
