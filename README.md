@@ -3,7 +3,7 @@
 
 # TASKLY 
 
-## One Task App Fpr all Your needs
+## One Task App For all Your needs
 
 ### Built With
 
