@@ -48,6 +48,7 @@ const TaskForm = forwardRef(
                 placeholder="Title"
                 {...register("title", {
                   required: "Title is required",
+                  maxLength:{value:300,message:"Title cannot be more that 300 chars"},
                   pattern: {
                     value: /\S/,
                     message: "Title cannot be empty or just spaces",

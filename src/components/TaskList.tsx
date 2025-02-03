@@ -21,7 +21,7 @@ const TaskList = ({ tasks, updateTaskStatus, deleteTask }: TaskListProps) => {
   const updateFilter = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const target = e.target as HTMLElement;
     console.log(target.id);
-    setFilter(target.id)
+    setFilter(target.id);
   };
 
   const sortedTasksArray = useMemo(() => {
@@ -39,26 +39,32 @@ const TaskList = ({ tasks, updateTaskStatus, deleteTask }: TaskListProps) => {
         <span className="flex items-center justify-center ">
           <div className="dropdown dropdown-left">
             <div tabIndex={0} role="button" className="btn m-1">
-              <Filter/>
+              <Filter />
             </div>
             <ul
               tabIndex={0}
               className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
             >
               <li>
-                <a onClick={updateFilter} id="all">All</a>
+                <a onClick={updateFilter} id="all">
+                  All
+                </a>
               </li>
               <li>
-                <a onClick={updateFilter} id="completed">Completed</a>
+                <a onClick={updateFilter} id="completed">
+                  Completed
+                </a>
               </li>
               <li>
-                <a onClick={updateFilter} id="pending">Pending</a>
+                <a onClick={updateFilter} id="pending">
+                  Pending
+                </a>
               </li>
             </ul>
           </div>
         </span>
       </header>
-      <div className="w-full h-[95%] overflow-auto p-[1vw] flex flex-col ">
+      <div className="w-full h-[95%] overflow-y-auto p-[1vw] flex flex-col ">
         <div>
           {filteredTaskArray &&
             filteredTaskArray.length > 0 &&

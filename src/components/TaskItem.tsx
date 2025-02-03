@@ -19,12 +19,12 @@ const TaskItem = ({ task, updateTaskStatus, deleteTask }: TaskItemProps) => {
 
   return (
     <div className="p-4">
-      <div className="border border-gray-300 bg-blue-200 rounded-lg">
+      <div className="w-[80vw]   border border-gray-300 bg-blue-200 rounded-lg ">
         <div
-          className="flex justify-between items-center p-4 cursor-pointer"
+          className="flex justify-between items-center p-4 cursor-pointer "
           onClick={() => setIsOpen(!isOpen)} // Toggle collapse when clicked on
         >
-          <span className="text-[1.4vw] flex items-center gap-[1vw]">
+          <span className="text-[1.4vw] flex items-center gap-[1vw] overflow-auto">
             <CircleCheckBig
               className={`${
                 isTaskStatusPending ? "text-black" : "text-green-500"
@@ -38,16 +38,16 @@ const TaskItem = ({ task, updateTaskStatus, deleteTask }: TaskItemProps) => {
               }}
             />
             {isTaskStatusPending ? (
-              <p className="flex flex-col justify-center">
-                {task.title}
+              <div className="flex flex-col justify-center overflow-y-hidden break-words w-[90%]   ">
+                <p className="h-fit text-left">{task.title}</p>
                 <span className="flex gap-1 text-[1vw] items-center">
                   <Calendar className="w-[1vw]" />
                   {formattedDate(task.dueDate)}
                 </span>
-              </p>
+              </div>
             ) : (
-              <s className="flex flex-col justify-center">
-                {task.title}
+              <s className="flex flex-col justify-center overflow-y-hidden break-words w-[90%]">
+                <p className="h-fit text-left">{task.title}</p>
                 <span className="flex gap-1 text-[1vw] items-center">
                   <Calendar className="w-[1vw]" />
                   {formattedDate(task.dueDate)}
@@ -68,11 +68,11 @@ const TaskItem = ({ task, updateTaskStatus, deleteTask }: TaskItemProps) => {
 
         {/* Collapse Content */}
         <div
-          className={`overflow-hidden text-left transition-all duration-300 ease-in-out ${
-            isOpen ? "max-h-[500px] p-4" : "max-h-0 p-0"
+          className={`break-words overflow-y-hidden text-left transition-all duration-300 ease-in-out ${
+            isOpen ? "max-h-fit p-4" : "max-h-0 p-0"
           }`}
         >
-          <p>{task.description}</p>
+          <p className="h-fit">{task.description}</p>
         </div>
       </div>
     </div>
