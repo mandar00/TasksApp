@@ -1,4 +1,5 @@
 import { TaskType } from "../types/taskTypes"
+import { genrateRandomId } from "../utils/generalUtils"
 import { getUser, isLocalStorageFull } from "./userService"
 
 
@@ -9,13 +10,25 @@ export const createTask = (username: string, taskData: TaskType) => {
     }
 
     const user = getUser(username)
-    if(user){
-      user.data.push(taskData)
-      localStorage.setItem(username,JSON.stringify(user))
+    if (user !== null) {
+      user.data.push({ ...taskData, id: genrateRandomId() })
+      localStorage.setItem(username, JSON.stringify(user))
       resolve("Task Added Successfully")
-    }else{
-      reject(new Error("No Logged in user found. Please Login!"))
+    } else {
+      reject(new Error("User not found. Please Login!"))
     }
   })
 
+}
+
+
+export const fetchAllTasks = (username: string) => {
+  return new Promise((resolve, reject) => {
+    const user = getUser(username)
+    if (user !== null) {
+      resolve(user?.data)
+    } else {
+      reject(new Error("User not found. Please Login!"))
+    }
+  })
 }

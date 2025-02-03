@@ -1,19 +1,41 @@
-import { useRef, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useRef, useState } from "react";
 import TaskForm from "../components/TaskForm";
-import { TaskType } from "../types/taskTypes";
-import { createTask } from "../service/taskService";
+import { TaskType, TaskWithIdType } from "../types/taskTypes";
+import { createTask, fetchAllTasks } from "../service/taskService";
 import { useUser } from "../context/User/userContext";
 import Redirect from "../components/Redirect";
-import LoginRedirect from "../assets/loginRedirect.svg"
+import LoginRedirect from "../assets/loginRedirect.svg";
 import { useToasts } from "../hooks/useToasts";
+import TaskList from "../components/TaskList";
 
 const Tasks = () => {
   const { username } = useUser();
-  const [isOpen, setIsOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const {addInfoToast} = useToasts();
-
+  const { addInfoToast,addDangerToast } = useToasts();
   const formRef = useRef<{ resetForm: () => void }>(null);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [tasks, setTasks] = useState<TaskWithIdType[]>([]);
+
+  const getAllTasks=async()=>{
+    try {
+      const response = await fetchAllTasks(username);
+      setTasks(response as TaskWithIdType[])
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Error:", error.message);
+        addDangerToast(error.message)
+      } else {
+        console.error("Unexpected error:", error);
+        addDangerToast("Something went wrong")
+      }
+    }
+  }
+
+  useEffect(()=>{
+    // fetch all tasks and set Tasks state
+    getAllTasks()
+  },[])
 
   const toggleModal = (value: boolean | undefined = undefined) => {
     if (value === undefined) {
@@ -23,38 +45,38 @@ const Tasks = () => {
     }
   };
 
-  const onSubmit = async(data: TaskType) => {
+  const onSubmit = async (data: TaskType) => {
     try {
-      setIsSubmitting(true);
-      await createTask(username,data)
+      await createTask(username, data);
       formRef.current?.resetForm();
       setIsOpen(false);
-      addInfoToast("Task added successfully")
+      addInfoToast("Task added successfully");
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error("Error:", error.message);
+        addDangerToast(error.message)
       } else {
         console.error("Unexpected error:", error);
+        addDangerToast("Something went wrong")
       }
-    } finally {
-      setIsSubmitting(false);
-      
     }
-    console.log("Form Data:", data);
   };
 
-  if(!username || username.length === 0){
-    return(
-      <Redirect  imagePath={LoginRedirect} redirectBtnText="Login page" redirectTo="/login" redirectMessage="Please Login to add tasks"/>
-    )
+  if (!username || username.length === 0) {
+    return (
+      <Redirect
+        imagePath={LoginRedirect}
+        redirectBtnText="Login page"
+        redirectTo="/login"
+        redirectMessage="Please Login to add tasks"
+      />
+    );
   }
-
-
 
   return (
     <>
-      <div>
-
+      <div className="w-full h-full flex items-center justify-center">
+        <TaskList tasks={tasks}/>
       </div>
       <button
         onClick={() => toggleModal(true)}
@@ -67,7 +89,6 @@ const Tasks = () => {
         isOpen={isOpen}
         closeModal={toggleModal}
         onSubmit={onSubmit}
-        isSubmitting={isSubmitting}
       />
     </>
   );

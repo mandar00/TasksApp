@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { bindActionCreators } from "@reduxjs/toolkit";
 import { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { showSnackbar } from "../store/slice/snackbarSlice";
@@ -27,9 +26,12 @@ export function useToasts() {
     );
   };
 
-  const toasters = {
-    addDangerToast,
-    addInfoToast
-  };
-  return useMemo(() => bindActionCreators(toasters, dispatch), [dispatch]);
+  return useMemo(
+    () => ({
+      addDangerToast,
+      addInfoToast,
+    }),
+    [dispatch]
+  );
+
 }

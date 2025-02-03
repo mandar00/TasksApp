@@ -6,11 +6,10 @@ interface TaskFormProps {
   isOpen: boolean;
   onSubmit: (data: TaskType) => Promise<void>;
   closeModal: (value: boolean) => void;
-  isSubmitting: boolean;
 }
 
 const TaskForm = forwardRef(
-  ({ isOpen, closeModal, onSubmit, isSubmitting }: TaskFormProps, ref) => {
+  ({ isOpen, closeModal, onSubmit }: TaskFormProps, ref) => {
     const {
       register,
       handleSubmit,
@@ -87,9 +86,9 @@ const TaskForm = forwardRef(
                 <button
                   type="submit"
                   className="btn btn-info text-white"
-                  disabled={!title || !dueDate || isSubmitting}
+                  disabled={!title || !dueDate}
                 >
-                  {isSubmitting ? "Submitting..." : "Submit"}
+                  Submit
                 </button>
                 <button
                   type="button"
