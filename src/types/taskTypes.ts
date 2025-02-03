@@ -9,3 +9,7 @@ export interface CompleteTaskType extends TaskType {
   id: string;
   status:"pending" | "completed"
 }
+
+export interface TasksListType {
+  [key: string]: CompleteTaskType;
+}

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
 import TaskForm from "../components/TaskForm";
-import { TaskType, CompleteTaskType } from "../types/taskTypes";
+import { TaskType, CompleteTaskType, TasksListType } from "../types/taskTypes";
 import { createTask, fetchAllTasks } from "../service/taskService";
 import { useUser } from "../context/User/userContext";
 import Redirect from "../components/Redirect";
@@ -11,9 +11,7 @@ import TaskList from "../components/TaskList";
 import { copyDeep } from "../utils/generalUtils";
 import { handleLocalstorage } from "../service/localstorageService";
 
-interface TasksListType {
-  [key: string]: CompleteTaskType;
-}
+
 
 const Tasks = () => {
   const { username } = useUser();

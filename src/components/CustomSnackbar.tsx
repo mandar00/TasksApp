@@ -33,7 +33,7 @@ const CustomSnackbar = () => {
     <>
       {show && (
         <div className="toast ">
-          <div className={cn(`alert alert-${severity} text-white`)}>
+          <div className={cn(`alert alert-${severity} bg-info`)}>
             <span>{message}</span>
           <div onClick={closeSnackbar} className="cursor-pointer">x</div>
           </div>

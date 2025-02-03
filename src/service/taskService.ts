@@ -1,4 +1,4 @@
-import { TaskType } from "../types/taskTypes"
+import { TasksListType, TaskType } from "../types/taskTypes"
 import { genrateRandomId } from "../utils/generalUtils"
 import { getUser, isLocalStorageFull } from "./userService"
 
@@ -31,4 +31,11 @@ export const fetchAllTasks = (username: string) => {
       reject(new Error("User not found. Please Login!"))
     }
   })
+}
+
+
+export const getSortedTaskArray=(taskObj:TasksListType)=>{
+  const tasksArray = Object.values(taskObj);
+  return tasksArray.sort((a,b)=> new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime() )
+
 }
