@@ -5,6 +5,31 @@
 
 ## One Task App For all Your needs
 
+### APPLICATION FLOW
+#### Ctrl + click on nodes in the flow chart will redirect you to the code segment
+```mermaid
+graph TD
+    A[User] -->|Login/Register| B[Authentication Service]
+    B -->|Success| C[Home]
+    C --> D[Task List]
+    C --> E[Add Task]
+    C --> G[Delete Task]
+    C --> F[Mark as completed]
+    E -->|Submit| D
+    G -->|Confirm| D
+    F -->|Confirm| D
+    C --> J[Logout]
+    J --> A
+
+    click B "https://github.com/mandar00/TasksApp/blob/e3b4136a28f6e2b0f8612350bb6f95db748caa40/src/service/userService.ts#L1"
+    click C "https://github.com/mandar00/TasksApp/blob/e3b4136a28f6e2b0f8612350bb6f95db748caa40/src/pages/Tasks.tsx#L1"
+    click D "https://github.com/mandar00/TasksApp/blob/e3b4136a28f6e2b0f8612350bb6f95db748caa40/src/components/TaskList.tsx#L1"
+    click E "https://github.com/mandar00/TasksApp/blob/e3b4136a28f6e2b0f8612350bb6f95db748caa40/src/components/TaskForm.tsx#L1"
+    click G "https://github.com/mandar00/TasksApp/blob/e3b4136a28f6e2b0f8612350bb6f95db748caa40/src/pages/Tasks.tsx#L92"
+    click F "https://github.com/mandar00/TasksApp/blob/e3b4136a28f6e2b0f8612350bb6f95db748caa40/src/pages/Tasks.tsx#L82"
+    click J "https://github.com/mandar00/TasksApp/blob/e3b4136a28f6e2b0f8612350bb6f95db748caa40/src/components/Header.tsx#L20"
+```
+
 ### Built With
 
 - [![React][React.js]][React-url]
